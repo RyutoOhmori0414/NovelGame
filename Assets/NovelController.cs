@@ -21,7 +21,7 @@ public class NovelController : MonoBehaviour
         {
             if (line.Contains("@situation:"))
             {
-                _situation.text = line.Replace("@situation:", "");
+                _situation.text = line.Replace("@situation:", "").TrimStart('\r', '\n');
             }
             else if (line.Contains("@name:"))
             {
