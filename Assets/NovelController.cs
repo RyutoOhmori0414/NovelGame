@@ -13,30 +13,80 @@ public class NovelController : MonoBehaviour
     [SerializeField] Text _name;
     [Tooltip("本文を表示するUI")]
     [SerializeField] Text _line;
+    [Tooltip("本文が入るリスト")]
+    List<string> _lines = new List<string>();
+    [Tooltip("名前が入るリスト")]
+    List<string> _names = new List<string>();
+    [Tooltip("状態が入るリスト")]
+    List<string> _state = new List<string>();
+    [Tooltip("クリック")]
+    int _crickCount = 0;
     // Start is called before the first frame update
     void Start()
     {
-        var stringLine = _novelText.text.Split(',');
-        foreach (var line in stringLine)
+        SplitText();
+    }
+
+    private void Update()
+    {
+        ChangeLine();
+    }
+
+    void ChangeLine()
+    {
+        if (Input.GetButtonDown("Submit") || _crickCount == 0)
         {
-            if (line.Contains("@situation:"))
+            if (_state[_crickCount] != "none")
             {
-                _situation.text = line.Replace("@situation:", "").TrimStart('\r', '\n');
+                _situation.text = _state[_crickCount];
             }
-            else if (line.Contains("@name:"))
+            if (_names[_crickCount] != "none")
             {
-                _name.text = line.Replace("@name:", "").TrimStart('\r', '\n');
+                _name.text = _names[_crickCount];
             }
-            else if (line.Contains("line:"))
+            if (_lines[_crickCount] != "none")
             {
-                _line.text = line.Replace("@line:", "").TrimStart('\r', '\n');
+                _line.text = _lines[_crickCount];
             }
+
+            _crickCount++;
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void SplitText()
     {
-        
+        var stringLine = _novelText.text.Split('|');
+        foreach (var line in stringLine)
+        {
+            if (!line.Contains("@situation:"))
+            {
+                _state.Add("none");
+            }
+            if (!line.Contains("@name:"))
+            {
+                _names.Add("none");
+            }
+            if (!line.Contains("@line:"))
+            {
+                _lines.Add("none");
+            }
+
+            var str = line.Split(',');
+            foreach (var text in str)
+            {
+                if (text.Contains("@situation:"))
+                {
+                    _state.Add(text.Replace("@situation:", "").TrimStart('\r', '\n'));
+                }
+                else if (text.Contains("@name:"))
+                {
+                    _names.Add(text.Replace("@name:", "").TrimStart('\r', '\n'));
+                }
+                else if (text.Contains("@line:"))
+                {
+                    _lines.Add(text.Replace("@line:", "").TrimStart('\r', '\n'));
+                }
+            }
+        }
     }
 }
