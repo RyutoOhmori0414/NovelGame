@@ -4,18 +4,10 @@ using System;
 public class Savedata
 {
     public int LineNum;
-    public BitFlag Flag;
+    public int Flag;
     
-    public enum BitFlag
-    {
-        Flag1 = 1,
-        Flag2 = 2,
-        Flag3 = 4,
-        Flag4 = 8,
-        Flag5 = 16
-    }
 
-    public Savedata(int lineNum, BitFlag flag)
+    public Savedata(int lineNum, int flag)
     {
         this.LineNum = lineNum;
         this.Flag = flag;
