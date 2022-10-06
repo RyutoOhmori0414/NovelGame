@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class SaveController : MonoBehaviour
 {
-    void Save()
+
+    public void Save(int currentLineNum/*, int bitFlag*/)
     {
-        int _currentLineNum = default;
-        
-        Savedata _savedata = new Savedata(_currentLineNum, Savedata.BitFlag.Flag1);
+        Savedata _savedata = new Savedata(currentLineNum, 0);
+
+        // Json‚ÉƒVƒŠƒAƒ‹‰»
+        string json = JsonUtility.ToJson(_savedata);
+        // —]—T‚ª‚ ‚ê‚ÎˆÃ†‰»‚µ‚Ä‚İ‚½‚¢
+        Debug.Log(json);
+
+        // •Û‘¶
+        PlayerPrefs.SetString("SaveData", json);
     }
 }
