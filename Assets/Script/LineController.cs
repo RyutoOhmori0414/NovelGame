@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class LineController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("読み込むテキスト")]
+    [Tooltip("シナリオのテキスト"), SerializeField]
+    TextAsset _scenarioText;
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>現在の行</summary>
+    int _lineNum = default;
+    /// <summary>現在の行</summary>
+    public int LineNum
     {
-        
+        get { return _lineNum; }
     }
 }
