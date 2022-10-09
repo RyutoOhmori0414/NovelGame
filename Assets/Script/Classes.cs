@@ -3,6 +3,7 @@ using System;
 [Serializable]
 public class Savedata
 {
+    public int Chapter;
     public int LineNum;
     public int Flag;
     
