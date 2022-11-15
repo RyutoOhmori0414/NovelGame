@@ -12,16 +12,9 @@ public class LineController : MonoBehaviour
         string _name;
         string _line;
 
-        string State { get => _state; }
-        string Name { get => _name; }
-        string Line { get => _line; }
-
-        Linedata(string line = "", string name = "", string state = "")
-        {
-            _name = name;
-            _state = state;
-            _line = line;
-        }
+        string State { get => _state; set => _state = value; }
+        string Name { get => _name; set => _name = value; }
+        string Line { get => _line; set => _line = value; }
     }
 
     List<Linedata> _linedata = new List<Linedata>();
@@ -38,10 +31,20 @@ public class LineController : MonoBehaviour
 
     private void Start()
     {
-        string introductionPath = Application.persistentDataPath + "/introduction.txt";
-        var introductionText = File.ReadAllText(introductionPath).Split('|');
+        string textPath = Application.persistentDataPath + "/introduction.txt";
+        var introductionText = File.ReadAllText(textPath).Split('|');
 
-        foreach (var n in introductionText)
+        for (int i = 0; i < introductionText.Length; i++)
+        {
+            var temp = introductionText[i].Split(',');
+            _linedata.Add(new Linedata());
+            foreach(var o in temp)
+            {
+                
+            }
+
+            
+        }
 
     }
 
