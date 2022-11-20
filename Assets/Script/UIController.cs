@@ -9,19 +9,40 @@ public class UIController : MonoBehaviour
     Text _mainText = default;
     [Tooltip("名前を出すテキスト"), SerializeField]
     Text _nameText = default;
+    [Tooltip("状態を出すテキスト"), SerializeField]
+    Text _stateText = default;
 
     LineController _lineController = default;
 
     private void Start()
     {
-        _lineController = GetComponent<LineController>();
+        _lineController = FindObjectOfType<LineController>();
+        TextUIUpdate();
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("submit"))
+        if (Input.GetButtonDown("Submit"))
         {
-            _mainText.text = _lineController.LineUpdate();
+            TextUIUpdate();
+        }
+    }
+
+    void TextUIUpdate()
+    {
+        string tempName;
+        string tempState;
+
+        _mainText.text = _lineController.LineUpdate(out tempName, out tempState);
+
+        if (tempName != null)
+        {
+            _nameText.text = tempName;
+        }
+
+        if (tempState != null)
+        {
+            _stateText.text = tempState;
         }
     }
 }
