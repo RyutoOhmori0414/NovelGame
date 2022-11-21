@@ -308,6 +308,7 @@ MonoBehaviour:
   _mainText: {fileID: 1555023771}
   _nameText: {fileID: 1669827221}
   _stateText: {fileID: 498309855}
+  _textDuration: 0.1
 --- !u!4 &496272978
 Transform:
   m_ObjectHideFlags: 0

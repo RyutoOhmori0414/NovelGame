@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIController : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class UIController : MonoBehaviour
     Text _nameText = default;
     [Tooltip("状態を出すテキスト"), SerializeField]
     Text _stateText = default;
+
+    [Tooltip("一文字出す間隔"), SerializeField]
+    float _textDuration = 0.1f;
 
     LineController _lineController = default;
 
@@ -32,8 +36,11 @@ public class UIController : MonoBehaviour
     {
         string tempName;
         string tempState;
+        _mainText.DOKill();
+        _mainText.text = "";
 
-        _mainText.text = _lineController.LineUpdate(out tempName, out tempState);
+        string tempLine = _lineController.LineUpdate(out tempName, out tempState);
+        _mainText.DOText(tempLine, _textDuration * tempLine.Length).SetEase(Ease.Linear);
 
         if (tempName != null)
         {
